@@ -4,65 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Cristy ❤️</title>
-
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  text-align: center;
-  color: #fff;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  text-align:center;
+  color:white;
+}
+.container{
+  padding:20px;
+}
+h1{
+  font-size:28px;
+}
+.sub{
+  margin-bottom:20px;
+}
+.rosas{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  max-width:300px;
+  margin:auto;
 }
 
-.container {
-  padding: 20px;
+.rosa{
+  font-size:45px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-h1 {
-  font-size: 28px;
+.rosa:hover{
+  transform:scale(1.2);
+}
+.mensaje{
+  margin-top:25px;
+  font-size:20px;
+  min-height:60px;
+}
+.final{
+  margin-top:20px;
+  font-weight:bold;
+  font-size:22px;
+  display:none;
 }
 
-.sub {
-  font-size: 18px;
-  margin-bottom: 20px;
+button{
+  margin-top:20px;
+  padding:12px 25px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:#ff4d6d;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
 }
 
-.rosas {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  max-width: 300px;
-  margin: auto;
-}
-
-.rosa {
-  font-size: 45px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.rosa:hover {
-  transform: scale(1.2);
-}
-
-.mensaje {
-  margin-top: 25px;
-  font-size: 20px;
-  min-height: 60px;
-  padding: 10px;
-}
-
-.final {
-  margin-top: 30px;
-  font-size: 22px;
-  font-weight: bold;
-  display: none;
-}
-
-@media (max-width: 500px) {
-  h1 { font-size: 24px; }
-  .rosa { font-size: 40px; }
-  .mensaje { font-size: 18px; }
+@media(max-width:500px){
+  .rosa{font-size:40px;}
 }
 </style>
 </head>
@@ -71,7 +72,7 @@ h1 {
 
 <div class="container">
   <h1>Para mi amorcito lindo Cristy ❤️</h1>
-  <div class="sub">Toca cada rosa para descubrir un mensaje</div>
+  <div class="sub">Toca cada rosa</div>
 
   <div class="rosas">
     <div class="rosa" onclick="mostrarMensaje()">🌹</div>
@@ -84,28 +85,52 @@ h1 {
 
   <div class="mensaje" id="mensaje"></div>
   <div class="final" id="final">Att: tu negrito ❤️</div>
+
+  <button onclick="toggleMusica()" id="btnMusica">
+    🎵 Escuchar nuestra canción
+  </button>
+
+  <audio id="musica" loop>
+    <source src="ella-es-mi-todo.mp3" type="audio/mpeg">
+  </audio>
 </div>
 
 <script>
-const mensajes = [
+const mensajes=[
 "Gracias por existir ❤️",
-"Eres lo mejor que me ha pasado",
-"Tu sonrisa ilumina mis días",
+"Eres mi alegría diaria",
+"Tu sonrisa ilumina mi vida",
 "Me haces muy feliz",
 "Eres mi tranquilidad",
-"Te quiero muchísimo"
+"Eres mi todo 💕"
 ];
 
-let contador = 0;
+let contador=0;
 
-function mostrarMensaje() {
-  if (contador < mensajes.length) {
-    document.getElementById("mensaje").innerText = mensajes[contador];
+function mostrarMensaje(){
+  if(contador<mensajes.length){
+    document.getElementById("mensaje").innerText=mensajes[contador];
     contador++;
   }
 
-  if (contador === mensajes.length) {
-    document.getElementById("final").style.display = "block";
+  if(contador===mensajes.length){
+    document.getElementById("final").style.display="block";
+  }
+}
+
+const musica=document.getElementById("musica");
+const btn=document.getElementById("btnMusica");
+let reproduciendo=false;
+
+function toggleMusica(){
+  if(!reproduciendo){
+    musica.play();
+    btn.innerText="⏸ Pausar canción";
+    reproduciendo=true;
+  }else{
+    musica.pause();
+    btn.innerText="🎵 Escuchar nuestra canción";
+    reproduciendo=false;
   }
 }
 </script>
@@ -115,3 +140,4 @@ function mostrarMensaje() {
 
   
    
+
