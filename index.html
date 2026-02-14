@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Para Cristy ❤️</title>
+
 <style>
 body{
   margin:0;
@@ -12,15 +13,19 @@ body{
   text-align:center;
   color:white;
 }
+
 .container{
   padding:20px;
 }
+
 h1{
   font-size:28px;
 }
+
 .sub{
   margin-bottom:20px;
 }
+
 .rosas{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -38,11 +43,13 @@ h1{
 .rosa:hover{
   transform:scale(1.2);
 }
+
 .mensaje{
   margin-top:25px;
   font-size:20px;
   min-height:60px;
 }
+
 .final{
   margin-top:20px;
   font-weight:bold;
@@ -106,8 +113,20 @@ const mensajes=[
 ];
 
 let contador=0;
+let musicaIniciada=false;
+
+const musica=document.getElementById("musica");
+const btn=document.getElementById("btnMusica");
+
+musica.volume=0.2;
 
 function mostrarMensaje(){
+  if(!musicaIniciada){
+    musica.play();
+    btn.innerText="⏸ Pausar canción";
+    musicaIniciada=true;
+  }
+
   if(contador<mensajes.length){
     document.getElementById("mensaje").innerText=mensajes[contador];
     contador++;
@@ -118,26 +137,20 @@ function mostrarMensaje(){
   }
 }
 
-const musica=document.getElementById("musica");
-const btn=document.getElementById("btnMusica");
-let reproduciendo=false;
+let reproduciendo=true;
 
 function toggleMusica(){
-  if(!reproduciendo){
-    musica.play();
-    btn.innerText="⏸ Pausar canción";
-    reproduciendo=true;
-  }else{
+  if(reproduciendo){
     musica.pause();
     btn.innerText="🎵 Escuchar nuestra canción";
     reproduciendo=false;
+  }else{
+    musica.play();
+    btn.innerText="⏸ Pausar canción";
+    reproduciendo=true;
   }
 }
 </script>
 
 </body>
 </html>
-
-  
-   
-
