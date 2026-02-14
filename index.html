@@ -22,16 +22,12 @@ h1{
   font-size:28px;
 }
 
-.sub{
-  margin-bottom:20px;
-}
-
 .rosas{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:15px;
   max-width:300px;
-  margin:auto;
+  margin:20px auto;
 }
 
 .rosa{
@@ -40,8 +36,8 @@ h1{
   transition:0.3s;
 }
 
-.rosa:hover{
-  transform:scale(1.2);
+.rosa:active{
+  transform:scale(1.3);
 }
 
 .mensaje{
@@ -68,10 +64,6 @@ button{
   font-size:16px;
   cursor:pointer;
 }
-
-@media(max-width:500px){
-  .rosa{font-size:40px;}
-}
 </style>
 </head>
 
@@ -79,7 +71,7 @@ button{
 
 <div class="container">
   <h1>Para mi amorcito lindo Cristy ❤️</h1>
-  <div class="sub">Toca cada rosa</div>
+  <p>Toca las rosas</p>
 
   <div class="rosas">
     <div class="rosa" onclick="mostrarMensaje()">🌹</div>
@@ -93,12 +85,12 @@ button{
   <div class="mensaje" id="mensaje"></div>
   <div class="final" id="final">Att: tu negrito ❤️</div>
 
-  <button onclick="toggleMusica()" id="btnMusica">
-    🎵 Escuchar nuestra canción
+  <button id="btnMusica" onclick="toggleMusica()">
+    🎵 Activar música
   </button>
 
-  <audio id="musica" loop>
-    <source src="ella-es-mi-todo.mp3" type="audio/mpeg">
+  <audio id="musica" loop preload="auto">
+    <source src="./ella-es-mi-todo.mp3" type="audio/mpeg">
   </audio>
 </div>
 
@@ -113,7 +105,7 @@ const mensajes=[
 ];
 
 let contador=0;
-let musicaIniciada=false;
+let musicaActiva=false;
 
 const musica=document.getElementById("musica");
 const btn=document.getElementById("btnMusica");
@@ -121,12 +113,6 @@ const btn=document.getElementById("btnMusica");
 musica.volume=0.2;
 
 function mostrarMensaje(){
-  if(!musicaIniciada){
-    musica.play();
-    btn.innerText="⏸ Pausar canción";
-    musicaIniciada=true;
-  }
-
   if(contador<mensajes.length){
     document.getElementById("mensaje").innerText=mensajes[contador];
     contador++;
@@ -137,17 +123,18 @@ function mostrarMensaje(){
   }
 }
 
-let reproduciendo=true;
-
 function toggleMusica(){
-  if(reproduciendo){
-    musica.pause();
-    btn.innerText="🎵 Escuchar nuestra canción";
-    reproduciendo=false;
+  if(!musicaActiva){
+    musica.play().then(()=>{
+      btn.innerText="⏸ Pausar música";
+      musicaActiva=true;
+    }).catch(()=>{
+      alert("La canción no se encontró. Verifica que el archivo esté en el repositorio.");
+    });
   }else{
-    musica.play();
-    btn.innerText="⏸ Pausar canción";
-    reproduciendo=true;
+    musica.pause();
+    btn.innerText="🎵 Activar música";
+    musicaActiva=false;
   }
 }
 </script>
