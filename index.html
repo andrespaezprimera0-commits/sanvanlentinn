@@ -64,6 +64,13 @@ button{
   font-size:16px;
   cursor:pointer;
 }
+
+#youtubePlayer{
+  position:absolute;
+  width:0;
+  height:0;
+  border:0;
+}
 </style>
 </head>
 
@@ -85,14 +92,17 @@ button{
   <div class="mensaje" id="mensaje"></div>
   <div class="final" id="final">Att: tu negrito ❤️</div>
 
-  <button id="btnMusica" onclick="toggleMusica()">
-    🎵 Activar música
+  <button onclick="activarMusica()" id="btnMusica">
+    🎵 Activar nuestra canción
   </button>
-
-  <audio id="musica" loop preload="auto">
-    <source src="./ella-es-mi-todo.mp3" type="audio/mpeg">
-  </audio>
 </div>
+
+<!-- Video de YouTube oculto -->
+<iframe 
+  id="youtubePlayer"
+  src="https://www.youtube.com/embed/8q0u7j4Kk6E?enablejsapi=1&loop=1&playlist=8q0u7j4Kk6E"
+  allow="autoplay">
+</iframe>
 
 <script>
 const mensajes=[
@@ -105,12 +115,6 @@ const mensajes=[
 ];
 
 let contador=0;
-let musicaActiva=false;
-
-const musica=document.getElementById("musica");
-const btn=document.getElementById("btnMusica");
-
-musica.volume=0.2;
 
 function mostrarMensaje(){
   if(contador<mensajes.length){
@@ -123,19 +127,10 @@ function mostrarMensaje(){
   }
 }
 
-function toggleMusica(){
-  if(!musicaActiva){
-    musica.play().then(()=>{
-      btn.innerText="⏸ Pausar música";
-      musicaActiva=true;
-    }).catch(()=>{
-      alert("La canción no se encontró. Verifica que el archivo esté en el repositorio.");
-    });
-  }else{
-    musica.pause();
-    btn.innerText="🎵 Activar música";
-    musicaActiva=false;
-  }
+function activarMusica(){
+  const iframe=document.getElementById("youtubePlayer");
+  iframe.src=iframe.src + "&autoplay=1&mute=0";
+  document.getElementById("btnMusica").innerText="🎶 Sonando...";
 }
 </script>
 
