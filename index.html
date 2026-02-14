@@ -3,221 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Cristy ❤️</title>
+<title>Para Mi Amorcito Lindo Cristy ❤️</title>
 
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Arial', sans-serif;
+}
+
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  overflow:hidden;
-  background:radial-gradient(circle at bottom,#0b0c2a,#000);
-  color:white;
-  text-align:center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    text-align:center;
+    overflow-x:hidden;
+    min-height:100vh;
 }
 
-/* Carta */
-#carta{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  background:white;
-  color:#ff4d6d;
-  padding:30px;
-  border-radius:20px;
-  cursor:pointer;
-  font-size:20px;
-  z-index:5;
-  box-shadow:0 0 20px rgba(255,255,255,0.5);
+/* TÍTULO */
+h1{
+    margin-top:30px;
+    font-size:28px;
+    color:white;
+    text-shadow:2px 2px 6px rgba(0,0,0,0.3);
 }
 
-.hidden{display:none;}
-
-.container{
-  position:relative;
-  z-index:3;
-  padding:20px;
+.sub{
+    margin-top:10px;
+    color:white;
+    font-size:18px;
 }
 
+/* CONTENEDOR DE ROSAS */
 .rosas{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  max-width:300px;
-  margin:20px auto;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:40px;
+    gap:20px;
 }
 
 .rosa{
-  font-size:45px;
-  cursor:pointer;
-  transition:0.3s;
+    font-size:50px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-.rosa:active{
-  transform:scale(1.3);
+.rosa:hover{
+    transform:scale(1.2);
 }
 
+/* MENSAJE */
 .mensaje{
-  margin-top:20px;
-  min-height:60px;
+    margin-top:30px;
+    padding:20px;
+    max-width:90%;
+    margin-left:auto;
+    margin-right:auto;
+    background:white;
+    border-radius:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    font-size:18px;
+    min-height:60px;
 }
 
-.final{
-  font-weight:bold;
-  font-size:22px;
-  display:none;
+/* BOTÓN */
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:20px;
+    background:#ff4b7d;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:1;
+button:hover{
+    background:#ff1f5a;
+}
+
+/* FUEGOS ARTIFICIALES */
+.firework{
+    position:fixed;
+    width:5px;
+    height:5px;
+    background:yellow;
+    border-radius:50%;
+    animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
+    100%{
+        transform:scale(15);
+        opacity:0;
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width:600px){
+    h1{
+        font-size:22px;
+    }
+    .rosa{
+        font-size:40px;
+    }
+    .mensaje{
+        font-size:16px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="carta" onclick="abrirCarta()">
-💌 Toca para abrir mi corazón
+<h1>Para Mi Amorcito Lindo Cristy ❤️</h1>
+<p class="sub">Toca una rosa y mira lo que tengo para ti 🌹</p>
+
+<div class="rosas">
+    <div class="rosa" onclick="mostrarMensaje(0)">🌹</div>
+    <div class="rosa" onclick="mostrarMensaje(1)">🌹</div>
+    <div class="rosa" onclick="mostrarMensaje(2)">🌹</div>
+    <div class="rosa" onclick="mostrarMensaje(3)">🌹</div>
+    <div class="rosa" onclick="mostrarMensaje(4)">🌹</div>
 </div>
 
-<canvas id="canvas"></canvas>
-
-<div class="container hidden" id="contenido">
-  <h1>Para mi amorcito lindo Cristy ❤️</h1>
-  <p>Toca las rosas</p>
-
-  <div class="rosas">
-    <div class="rosa" onclick="mostrarMensaje()">🌹</div>
-    <div class="rosa" onclick="mostrarMensaje()">🌹</div>
-    <div class="rosa" onclick="mostrarMensaje()">🌹</div>
-    <div class="rosa" onclick="mostrarMensaje()">🌹</div>
-    <div class="rosa" onclick="mostrarMensaje()">🌹</div>
-    <div class="rosa" onclick="mostrarMensaje()">🌹</div>
-  </div>
-
-  <div class="mensaje" id="mensaje"></div>
-  <div class="final" id="final">Att: tu negrito ❤️</div>
+<div class="mensaje" id="mensaje">
+    Siempre serás la flor más hermosa de mi jardín 💖
 </div>
+
+<button onclick="lanzarFuegos()">Haz que brille nuestro amor ✨</button>
 
 <script>
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let stars=[];
-let particles=[];
-let petals=[];
-let contador=0;
-let teAmoCount=0;
-
-const mensajes=[
-"Gracias por existir ❤️",
-"Eres mi alegría diaria",
-"Tu sonrisa ilumina mi vida",
-"Me haces muy feliz",
-"Eres mi tranquilidad",
-"Eres mi todo 💕"
+const mensajes = [
+    "Mi amorcito lindo Cristy, eres lo más hermoso que me ha pasado 💕",
+    "Tu sonrisa ilumina mis días más oscuros ☀️",
+    "Contigo quiero todo, hoy y siempre 💍",
+    "Eres mi felicidad diaria, mi paz y mi amor eterno 💖",
+    "Gracias por existir y hacer mi mundo más bonito 🌎❤️"
 ];
 
-function abrirCarta(){
-  document.getElementById("carta").classList.add("hidden");
-  document.getElementById("contenido").classList.remove("hidden");
-  iniciarAnimaciones();
+function mostrarMensaje(index){
+    const mensaje = document.getElementById("mensaje");
+    mensaje.innerHTML = mensajes[index];
+    lanzarFuegos();
 }
 
-function mostrarMensaje(){
-  if(contador<mensajes.length){
-    document.getElementById("mensaje").innerText=mensajes[contador];
-    contador++;
-  }
-  if(contador===mensajes.length){
-    document.getElementById("final").style.display="block";
-    setInterval(crearFuegoCorazon,1500);
-  }
+function lanzarFuegos(){
+    for(let i=0; i<20; i++){
+        const fire = document.createElement("div");
+        fire.classList.add("firework");
+        fire.style.left = Math.random() * window.innerWidth + "px";
+        fire.style.top = Math.random() * window.innerHeight + "px";
+        fire.style.background = coloresRandom();
+        document.body.appendChild(fire);
+
+        setTimeout(() => {
+            fire.remove();
+        }, 1000);
+    }
 }
 
-function iniciarAnimaciones(){
-  for(let i=0;i<100;i++){
-    stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height});
-  }
-  setInterval(crearPetalo,200);
-  setInterval(()=>teAmoCount++,1000);
-  animar();
-}
-
-function crearFuegoCorazon(){
-  let centerX=Math.random()*canvas.width;
-  let centerY=Math.random()*canvas.height/2;
-
-  for(let t=0;t<Math.PI*2;t+=0.2){
-    let x=16*Math.pow(Math.sin(t),3);
-    let y=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
-    particles.push({
-      x:centerX,
-      y:centerY,
-      dx:x*0.3,
-      dy:y*0.3,
-      life:100,
-      color:`hsl(${Math.random()*360},100%,60%)`
-    });
-  }
-}
-
-function crearPetalo(){
-  petals.push({
-    x:Math.random()*canvas.width,
-    y:-10,
-    speed:2+Math.random()*2
-  });
-}
-
-function animar(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  /* Estrellas */
-  ctx.fillStyle="white";
-  stars.forEach(s=>{
-    ctx.fillRect(s.x,s.y,2,2);
-  });
-
-  /* Fuegos */
-  particles.forEach((p,i)=>{
-    p.x+=p.dx;
-    p.y+=p.dy;
-    p.life--;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,2,0,Math.PI*2);
-    ctx.fillStyle=p.color;
-    ctx.fill();
-    if(p.life<=0)particles.splice(i,1);
-  });
-
-  /* Pétalos */
-  petals.forEach((p,i)=>{
-    p.y+=p.speed;
-    ctx.font="20px Arial";
-    ctx.fillText("🌸",p.x,p.y);
-    if(p.y>canvas.height)petals.splice(i,1);
-  });
-
-  /* Nombre */
-  ctx.font="40px Arial";
-  ctx.fillStyle="rgba(255,255,255,0.9)";
-  ctx.fillText("CRISTY ❤️",canvas.width/2-120,80);
-
-  /* Anillo */
-  ctx.font="35px Arial";
-  ctx.fillText("💍",canvas.width/2-15,130);
-
-  /* Contador */
-  ctx.font="20px Arial";
-  ctx.fillText("Te amo x "+teAmoCount,canvas.width/2-60,160);
-
-  requestAnimationFrame(animar);
+function coloresRandom(){
+    const colores = ["#ff0", "#ff4b7d", "#00f7ff", "#fff", "#ff8800"];
+    return colores[Math.floor(Math.random() * colores.length)];
 }
 </script>
 
