@@ -18,10 +18,6 @@ body{
   padding:20px;
 }
 
-h1{
-  font-size:28px;
-}
-
 .rosas{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -33,11 +29,6 @@ h1{
 .rosa{
   font-size:45px;
   cursor:pointer;
-  transition:0.3s;
-}
-
-.rosa:active{
-  transform:scale(1.3);
 }
 
 .mensaje{
@@ -53,23 +44,8 @@ h1{
   display:none;
 }
 
-button{
-  margin-top:20px;
-  padding:12px 25px;
-  border:none;
-  border-radius:30px;
-  background:white;
-  color:#ff4d6d;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-}
-
-#youtubePlayer{
-  position:absolute;
-  width:0;
-  height:0;
-  border:0;
+.video{
+  margin-top:25px;
 }
 </style>
 </head>
@@ -92,17 +68,16 @@ button{
   <div class="mensaje" id="mensaje"></div>
   <div class="final" id="final">Att: tu negrito ❤️</div>
 
-  <button onclick="activarMusica()" id="btnMusica">
-    🎵 Activar nuestra canción
-  </button>
+  <div class="video">
+    <p>Nuestra canción ❤️</p>
+    <iframe width="300" height="170"
+      src="https://www.youtube.com/embed/8q0u7j4Kk6E"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
 </div>
-
-<!-- Video de YouTube oculto -->
-<iframe 
-  id="youtubePlayer"
-  src="https://www.youtube.com/embed/8q0u7j4Kk6E?enablejsapi=1&loop=1&playlist=8q0u7j4Kk6E"
-  allow="autoplay">
-</iframe>
 
 <script>
 const mensajes=[
@@ -125,12 +100,6 @@ function mostrarMensaje(){
   if(contador===mensajes.length){
     document.getElementById("final").style.display="block";
   }
-}
-
-function activarMusica(){
-  const iframe=document.getElementById("youtubePlayer");
-  iframe.src=iframe.src + "&autoplay=1&mute=0";
-  document.getElementById("btnMusica").innerText="🎶 Sonando...";
 }
 </script>
 
